@@ -42,9 +42,6 @@ The application uses a structured relational database designed to handle users, 
 ### Login 
 ![Login](snapshots/login.png)
 
-### Sign up 
-![Sign up](snapshots/signup.png)
-
 ### Homepage
 ![Homepage](snapshots/home.png)
 
