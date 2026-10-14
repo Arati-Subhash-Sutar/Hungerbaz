@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<title>Landing Page - Food Order</title>
+
+    	<style>
+	
+        	/* General Styles */
+        	body 
+		{
+			background: url('Images/index_back1.jpg') no-repeat center/cover;
+            		margin: 0;
+            		font-family: Arial, sans-serif;
+            		text-align: center;
+			height:850px;
+        	}
+
+        	/* Header */
+        	header 
+		{
+            		padding-bottom:15px;
+			padding-top:20px;
+            		color:white;
+        	}
+
+        	/*Hero Section*/ 
+        	.hero 
+		{
+            		display: flex;
+            		align-items: center;
+            		justify-content: left;
+			height:500px;
+			color:white;
+        	}
+
+		section {
+			padding: 20px;
+			display:flex;
+			justify-content: space-between;
+		}
+
+		.link
+		{	
+			text-align:right;
+			margin-right:40px;
+		}
+		
+		.left-section
+		{
+			width:80%;
+		}
+
+		.right-section
+		{
+			width:80%;
+		}
+
+		form {
+			max-width: 400px;
+			margin: auto;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+			padding :20px;
+			background-color:adb5bd;
+		}
+
+		label {
+			display: block;
+			text-align: left;
+			margin-bottom: 5px;
+		}
+		input[type="text"], input[type="email"], input[type="password"] {
+			width: 100%;
+			padding: 10px;
+			margin-bottom: 15px;
+		}
+		button[type="submit"] {
+			padding: 10px 20px;
+			background-color: #ffcc00;
+			color: black;
+			border: none;
+			cursor: pointer;
+		}
+
+		footer 
+		{
+			background-color: #222;
+			color: white;
+			padding: 10px;
+			margin-top:100px;
+			text-align:center;
+			
+		}
+    	</style>
+</head>
+
+<body>
+
+ 	<!-- Header -->
+    	<header>
+		<div class="link">
+			<nav>
+            			<a href="index.html" style="text-decoration:none; color:white; text-align:right; margin-right:20px;">Back To Page</a>
+            			<a href="login.html" style="text-decoration:none; color:white;	text-align:right; margin-right:20px;">Log In</a>
+        		</nav>
+		</div>
+
+        	<p style="display:block; font-family:Lucida Handwriting; font-size:50px;">Hungerbaz</p>
+		
+		
+	</header>
+
+    	<section class="hero">
+		<p style="font-size:40px; font-family:Copperplate; width:400px;  text-shadow:4px 4px 8px black;">Order food from favourite restaurants near you.</p>
+
+	<!-- Sign Up Form Section -->
+	<section>
+		<div class="left-section">
+			<h2 style= "width:400px; text-shadow:8px 8px 8px black;">Join Us Today!</h2>
+			<p style="text-shadow:8px 8px 8px black;">Create your account to start ordering delicious meals.</p>
+		</div>
+		<div class="right-section">
+			<form onsubmit="return validateSignUp()">
+				<label for="fullname">Full Name:</label>
+				<input type="text" id="fullname" placeholder="Enter your full name">
+				<label for="email">Email:</label>
+				<input type="email" id="email" placeholder="Enter your email">
+				<label for="username">Username:</label>
+				<input type="text" id="username" placeholder="Choose a username">
+				<label for="password">Password:</label>
+				<input type="password" id="password" placeholder="Create a password">
+				<label for="confirmPassword">Confirm Password:</label>
+				<input type="password" id="confirmPassword" placeholder="Confirm your password">
+				<button type="submit">Sign Up</button>
+			</form>
+		</div>
+		
+	</section>
+		
+	</section>
+
+	<div style="text-decoration:none; color:white;" >
+		<a href="login.html" style="text-decoration:none; color:white;">Already have an account?</a>
+	</div>
+
+
+    	<!-- Footer -->align
+    	<footer>
+        	&copy; 2025 Hungerbaz. All rights reserved.
+    	</footer>
+
+    	<script>
+
+		function validateSignUp() {
+			var fullname = document.getElementById("fullname").value;
+			var email = document.getElementById("email").value;
+			var username = document.getElementById("username").value;
+			var password = document.getElementById("password").value;
+			var confirmPassword = document.getElementById("confirmPassword").value;
+			if (fullname === "" || email === "" || username === "" || password === "" || confirmPassword === "") {
+				alert("Please fill in all fields!");
+				return false;
+			}
+			if (password !== confirmPassword) {
+				alert("Passwords do not match!");
+				return false;
+			}
+			alert("Account created successfully! Welcome, " + fullname + "!");
+			return true;
+		}
+	
+    	</script>
+
+</body>
+</html>

@@ -1,0 +1,587 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Homepage - Hungerbaz</title>  
+    <style>  
+        /* Body */  
+        body {  
+            background: url('Images/background_4.jpg') no-repeat center/cover;  
+            margin: 0;  
+            font-family: Arial, sans-serif;  
+            text-align: center;  
+        }  
+
+        /* Header */  
+        header {  
+            display: flex;  
+            justify-content: space-between;  
+            align-items: center;  
+            padding: 15px 40px;  
+            background: rgba(0, 0, 0, 0.7);  
+            color: white;  
+        }  
+
+        .logo {  
+            font-size: 32px;  
+            font-family: Lucida Handwriting;  
+        }  
+
+        nav a {  
+            text-decoration: none;  
+            color: white;  
+            margin: 0 15px;  
+            font-size: 18px;  
+        }  
+
+        nav a:hover {  
+            color: yellow;  
+        }  
+
+        /* Search Bar */  
+        .search-container {  
+            text-align: center;  
+            margin: 20px;  
+        }  
+
+        .search-bar {  
+            width: 60%;  
+            padding: 10px;  
+            font-size: 18px;  
+            border-radius: 5px;  
+            border: none;  
+        }  
+
+        .search-btn {  
+            padding: 10px 15px;  
+            background: #ffcc00;  
+            border: none;  
+            cursor: pointer;  
+            font-size: 18px;  
+            border-radius: 5px;  
+        }  
+
+        .search-btn:hover {  
+            background: #ff9900;  
+        }  
+
+        a:active {  
+            color: yellow;  
+        }  
+
+        /* Featured Restaurants */  
+        .featured {  
+            display: flex;  
+            justify-content: center;  
+            flex-wrap: wrap;  
+            margin: 40px;  
+        }  
+
+        .restaurant-card {  
+            width: 250px;  
+            padding: 15px;  
+            margin: 15px;  
+            background: white;  
+            border-radius: 10px;  
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);  
+            text-align: center;  
+            transition: transform 0.3s;  
+            cursor: pointer;  
+        }  
+
+        .restaurant-card:hover {  
+            transform: scale(1.05);  
+        }  
+
+        .restaurant-card img {  
+            width: 100%;  
+            border-radius: 8px;  
+        }  
+
+        .restaurant-card h3 {  
+            margin-top: 10px;  
+        }  
+
+        .add-to-cart {  
+            background-color: #ffcc00;  
+            color: black;  
+            padding: 10px;  
+            border: none;  
+            cursor: pointer;  
+            font-size: 16px;  
+            border-radius: 5px;  
+            transition: 0.3s;  
+        }  
+
+        .add-to-cart:hover {  
+            background-color: #ff9900;  
+        }  
+
+        .order-now {  
+            background-color: #ffcc00;  
+            color: black;  
+            padding: 10px;  
+            border: none;  
+            cursor: pointer;  
+            font-size: 16px;  
+            border-radius: 5px;  
+            transition: 0.3s;  
+        }  
+
+        .order-now:hover {  
+            background-color: #ff9900;  
+        }  
+
+        /* Dynamic Testimonials Section */  
+        .testimonials {  
+             background-color: #f9f9f9; 
+            padding: 40px;  
+            min-height: 300px;  
+            transition: all 0.5s ease;  
+        }  
+
+        .testimonials h2 {  
+            color: #333;  
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);  
+            margin-bottom: 30px;  
+        }  
+
+        .dish-details {  
+            max-width: 800px;  
+            margin: 0 auto;  
+            display: none; /* Hidden by default */  
+            background: white;  
+            border-radius: 10px;  
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);  
+            padding: 20px;  
+            text-align: left;  
+            transition: all 0.5s ease;  
+        }  
+
+        .dish-details.active {  
+            display: block;  
+            animation: fadeIn 0.5s;  
+        }  
+
+        @keyframes fadeIn {  
+            from { opacity: 0; }  
+            to { opacity: 1; }  
+        }  
+
+        .dish-header {  
+            display: flex;  
+            align-items: center;  
+            margin-bottom: 20px;  
+        }  
+
+        .dish-image {  
+            width: 150px;  
+            height: 150px;  
+            border-radius: 10px;  
+            object-fit: cover;  
+            margin-right: 20px;  
+        }  
+
+        .dish-title {  
+            flex: 1;  
+        }  
+
+        .dish-title h3 {  
+            margin: 0;  
+            font-size: 24px;  
+            color: #333;  
+        }  
+
+        .dish-title p {  
+            margin: 5px 0;  
+            color: #666;  
+        }  
+
+        .nutrition-info {  
+            display: grid;  
+            grid-template-columns: repeat(2, 1fr);  
+            gap: 15px;  
+            margin: 20px 0;  
+        }  
+
+        .nutrition-item {  
+            background: #f9f9f9;  
+            padding: 10px;  
+            border-radius: 5px;  
+        }  
+
+        .nutrition-item h4 {  
+            margin: 0 0 5px 0;  
+            color: #ff9900;  
+        }  
+
+        .nutrition-item p {  
+            margin: 0;  
+            font-size: 14px;  
+        }  
+
+        .ingredients {  
+            margin: 20px 0;  
+        }  
+
+        .ingredients h4 {  
+            margin: 0 0 10px 0;  
+            color: #ff9900;  
+        }  
+
+        .ingredients ul {  
+            padding-left: 20px;  
+            margin: 0;  
+        }  
+
+        .ingredients li {  
+            margin-bottom: 5px;  
+        }  
+
+        .testimonial-quotes {  
+            margin-top: 20px;  
+            font-style: italic;  
+            color: #555;  
+        }  
+
+        .testimonial-quotes p {  
+            margin: 10px 0;  
+            padding-left: 20px;  
+            border-left: 3px solid #ffcc00;  
+        }  
+
+        .view-menu-btn {  
+            background-color: #ffcc00;  
+            color: black;  
+            padding: 10px 20px;  
+            border: none;  
+            border-radius: 5px;  
+            cursor: pointer;  
+            font-size: 16px;  
+            transition: 0.3s;  
+            margin-top: 20px;  
+        }  
+
+        .view-menu-btn:hover {  
+            background-color: #ff9900;  
+        }  
+
+        /* Default message when no dish is hovered */  
+        .no-dish-selected {  
+            font-size: 18px;  
+            color: #666;  
+            padding: 50px 0;  
+        }  
+
+        /* Footer */  
+        footer {  
+            background-color: #222;  
+            color: white;  
+            padding: 15px;  
+        }  
+    </style>  
+</head>  
+<body>  
+    <!-- Header -->  
+    <header>  
+        <div class="logo">Hungerbaz</div>  
+        <nav>  
+            <a href="home.html">Home</a>  
+            <a href="menu.html">Menu</a>  
+     		<a href="cart.html" id="cart-link">Cart</a> 
+            <a href="orderDetails1.html">Orders</a>  
+            <a href="our team.html">Restaurants</a>  
+            <a href="aboutus.html">About Us</a>  
+        </nav>  
+    </header>  
+<!-- Search Bar --> 
+    <div class="search-container">  
+        <input type="text" class="search-bar" placeholder="Search for food or restaurants...">  
+        <button class="search-btn">Search</button>  
+    </div> 
+
+
+       <!-- Popular Menus -->  
+    <h1 style="color :white; text-shadow:4px 4px 8px black; font-family: Georgia, serif;">Our Popular Menus</h1>  
+    <div class="featured">  
+        <div class="restaurant-card" data-dish="south-indian-thali">  
+            <img src="Images/South Indian Thali.jpg" alt="South Indian Thali">  
+            <h3>South Indian Thali</h3>  
+            <h4>₹ 280/-</h4>  
+            <button class="order-now">Order Now</button>  
+            <button class="add-to-cart">Add To Cart</button>  
+        </div>  
+
+        <div class="restaurant-card" data-dish="hakka-noodles">  
+            <img src="Images/Indo-Chinese Hakka Noddles.jpg" alt="Indo-Chinese Hakka Noodles">  
+            <h3>Indo-Chinese Hakka Noodles</h3>  
+            <h4>₹ 120/-</h4>  
+            <button class="order-now">Order Now</button>  
+            <button class="add-to-cart">Add To Cart</button>  
+        </div>  
+
+        <div class="restaurant-card" data-dish="mexican-tacos">  
+            <img src="Images/Maxican Taccos.jpg" alt="Mexican Tacos">  
+            <h3>Mexican Tacos</h3>  
+            <h4>₹ 320/-</h4>  
+            <button class="order-now">Order Now</button>  
+            <button class="add-to-cart">Add To Cart</button>  
+        </div>  
+    </div>  
+
+    <!-- Dynamic Testimonials Section -->  
+    <div class="testimonials">  
+        <h2>Dish Details</h2>  
+        
+        <!-- Default message when no dish is selected -->  
+        <div class="no-dish-selected">  
+            Hover over any dish above to see detailed information, nutrition facts, and customer reviews
+        </div>  
+
+        <!-- South Indian Thali Details (hidden by default) -->  
+        <div class="dish-details" id="south-indian-thali">  
+            <div class="dish-header">  
+                <img src="Images/South Indian Thali.jpg" alt="South Indian Thali" class="dish-image">  
+                <div class="dish-title">  
+                    <h3>South Indian Thali</h3>  
+                    <p>₹ 280/-</p>  
+                    <p>A complete meal with authentic flavors from South India</p>  
+                </div>  
+            </div>  
+
+            <div class="nutrition-info">  
+                <div class="nutrition-item">  
+                    <h4>Nutrition Facts</h4>  
+                    <p>Calories: 450 kcal</p>  
+                    <p>Carbs: 60g | Protein: 15g</p>  
+                    <p>Fat: 12g | Fiber: 8g</p>  
+                </div>  
+                <div class="nutrition-item">  
+                    <h4>Health Benefits</h4>  
+                    <p>Rich in probiotics</p>  
+                    <p>Good source of fiber</p>  
+                    <p>Balanced macros</p>  
+                </div>  
+            </div>  
+
+            <div class="ingredients">  
+                <h4>Ingredients</h4>  
+                <ul>  
+                    <li>Steamed rice</li>  
+                    <li>Sambar (lentil stew)</li>  
+                    <li>Rasam (spicy soup)</li>  
+                    <li>Curd (yogurt)</li>  
+                    <li>3 seasonal vegetables</li>  
+                    <li>Papad and pickle</li>  
+                </ul>  
+            </div>  
+
+            <div class="testimonial-quotes">  
+                <h4>What Customers Say</h4>  
+                <p>"The South Indian Thali was absolutely delicious and authentic! Takes me back to my childhood in Chennai."</p>  
+                <p>"Perfectly balanced flavors and just the right portion size. My go-to lunch option!"</p>  
+            </div>  
+
+            <button class="view-menu-btn">View Full Menu</button>  
+        </div>  
+
+        <!-- Hakka Noodles Details (hidden by default) -->  
+        <div class="dish-details" id="hakka-noodles">  
+            <div class="dish-header">  
+                <img src="Images/Indo-Chinese Hakka Noddles.jpg" alt="Hakka Noodles" class="dish-image">  
+                <div class="dish-title">  
+                    <h3>Indo-Chinese Hakka Noodles</h3>  
+                    <p>₹ 120/-</p>  
+                    <p>Spicy, tangy noodles with Indian twist on Chinese cuisine</p>  
+                </div>  
+            </div>  
+
+            <div class="nutrition-info">  
+                <div class="nutrition-item">  
+                    <h4>Nutrition Facts</h4>  
+                    <p>Calories: 380 kcal</p>  
+                    <p>Carbs: 55g | Protein: 12g</p>  
+                    <p>Fat: 10g | Fiber: 5g</p>  
+                </div>  
+                <div class="nutrition-item">  
+                    <h4>Health Benefits</h4>  
+                    <p>Quick energy source</p>  
+                    <p>Vegetable packed</p>  
+                    <p>Low cholesterol</p>  
+                </div>  
+            </div>  
+
+            <div class="ingredients">  
+                <h4>Ingredients</h4>  
+                <ul>  
+                    <li>Hakka noodles</li>  
+                    <li>Bell peppers</li>  
+                    <li>Carrots</li>  
+                    <li>Cabbage</li>  
+                    <li>Soy sauce</li>  
+                    <li>Chili garlic paste</li>  
+                </ul>  
+            </div>  
+
+            <div class="testimonial-quotes">  
+                <h4>What Customers Say</h4>  
+                <p>"The Hakka Noodles had the perfect balance of spices and texture. My kids love it!"</p>  
+                <p>"Best late-night snack option. Comes hot and fresh every time."</p>  
+            </div>  
+
+            <button class="view-menu-btn">View Full Menu</button>  
+        </div>  
+
+        <!-- Mexican Tacos Details (hidden by default) -->  
+        <div class="dish-details" id="mexican-tacos">  
+            <div class="dish-header">  
+                <img src="Images/Maxican Taccos.jpg" alt="Mexican Tacos" class="dish-image">  
+                <div class="dish-title">  
+                    <h3>Mexican Tacos</h3>  
+                    <p>₹ 320/-</p>  
+                    <p>Authentic Mexican street-style tacos with fresh toppings</p>  
+                </div>  
+            </div>  
+
+            <div class="nutrition-info">  
+                <div class="nutrition-item">  
+                    <h4>Nutrition Facts</h4>  
+                    <p>Calories: 320 kcal (per taco)</p>  
+                    <p>Carbs: 30g | Protein: 18g</p>  
+                    <p>Fat: 15g | Fiber: 6g</p>  
+                </div>  
+                <div class="nutrition-item">  
+                    <h4>Health Benefits</h4>  
+                    <p>High protein</p>  
+                    <p>Gluten-free option</p>  
+                    <p>Fresh vegetables</p>  
+                </div>  
+            </div>  
+
+            <div class="ingredients">  
+                <h4>Ingredients</h4>  
+                <ul>  
+                    <li>Corn tortillas</li>  
+                    <li>Seasoned meat or beans</li>  
+                    <li>Fresh cilantro</li>  
+                    <li>Diced onions</li>  
+                    <li>Salsa verde</li>  
+                    <li>Lime wedges</li>  
+                </ul>  
+            </div>  
+
+            <div class="testimonial-quotes">  
+                <h4>What Customers Say</h4>  
+                <p>"The Mexican Tacos were bursting with flavor and fresh ingredients. Better than some I've had in Mexico!"</p>  
+                <p>"Perfect for Taco Tuesday. The salsa is amazing!"</p>  
+            </div>  
+
+            <button class="view-menu-btn">View Full Menu</button>  
+        </div>  
+    </div>  
+
+    <!-- Footer -->  
+    <footer>  
+        <p>&copy; 2025 Hungerbaz. All rights reserved.</p>  
+    </footer>  
+
+    <script>
+        // Generate consistent item IDs (same as menu.html)
+        function generateItemId(name) {
+            return name.toLowerCase()
+                       .replace(/[^a-z0-9]+/g, '-')
+                       .replace(/-+/g, '-')
+                       .replace(/^-|-$/g, '');
+        }
+        
+        // Enhanced Add to Cart functionality
+        function addToCart(itemElement) {
+            const item = {
+                id: generateItemId(itemElement.querySelector('h3').textContent),
+                name: itemElement.querySelector('h3').textContent.trim(),
+                price: parseFloat(itemElement.querySelector('h4').textContent.replace(/[^0-9.]/g, '')),
+                img: itemElement.querySelector('img').src,
+                veg: !itemElement.querySelector('h3').textContent.toLowerCase().includes('chicken'), // Simple veg check
+                quantity: 1
+            };
+        
+            let cart = JSON.parse(localStorage.getItem('hungerbazCart')) || {};
+            
+            if (cart[item.id]) {
+                cart[item.id].quantity += 1;
+            } else {
+                cart[item.id] = item;
+            }
+            
+            localStorage.setItem('hungerbazCart', JSON.stringify(cart));
+            updateCartCount();
+            
+            // Visual feedback
+            const btn = itemElement.querySelector('.add-to-cart');
+            btn.textContent = '✓ Added!';
+            setTimeout(() => {
+                btn.textContent = 'Add to Cart';
+            }, 2000);
+        }
+        
+        // Order Now functionality (matching menu.html)
+        function handleOrderNow(itemElement) {
+            const item = {
+                id: generateItemId(itemElement.querySelector('h3').textContent),
+                name: itemElement.querySelector('h3').textContent.trim(),
+                price: parseFloat(itemElement.querySelector('h4').textContent.replace(/[^0-9.]/g, '')),
+                img: itemElement.querySelector('img').src,
+                veg: !itemElement.querySelector('h3').textContent.toLowerCase().includes('chicken'),
+                quantity: 1
+            };
+            
+            localStorage.setItem('instantOrder', JSON.stringify([item]));
+            window.location.href = 'orderNowConfirm.html';
+        }
+        
+        // Initialize event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add to Cart buttons
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    addToCart(this.closest('.restaurant-card'));
+                });
+            });
+        
+            // Order Now buttons
+            document.querySelectorAll('.order-now').forEach(button => {
+                button.addEventListener('click', function() {
+                    handleOrderNow(this.closest('.restaurant-card'));
+                });
+            });
+        
+            // Search functionality
+            document.querySelector('.search-btn').addEventListener('click', function() {
+                const searchTerm = document.querySelector('.search-bar').value.toLowerCase();
+                window.location.href = `menu.html?search=${encodeURIComponent(searchTerm)}`;
+            });
+        
+            // Hover effects for dish details
+            document.querySelectorAll('.restaurant-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    const dishId = this.dataset.dish;
+                    document.querySelectorAll('.dish-details').forEach(d => d.classList.remove('active'));
+                    document.getElementById(dishId)?.classList.add('active');
+                    document.querySelector('.no-dish-selected').style.display = 'none';
+                });
+            });
+        
+            // Initialize cart count
+            updateCartCount();
+        });
+        
+        // Cart count updater
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('hungerbazCart')) || {};
+            const count = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-link').textContent = count > 0 ? `Cart (${count})` : 'Cart';
+        }
+        </script>
+</body>  
+</html>

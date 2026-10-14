@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Orders - Hungerbaz</title>
+  <style>
+    body {
+      background: url('cart_back.jpg') no-repeat center/cover;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background: #333;
+      color: white;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-family: Lucida Handwriting;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      margin: 0 15px;
+      font-size: 18px;
+    }
+
+    nav a:hover {
+      color: yellow;
+    }
+
+    .orders-container, .history-container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      background: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      border-radius: 10px;
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    .order {
+      border-bottom: 1px solid #ddd;
+      padding: 15px;
+    }
+
+    .order h3 {
+      margin: 0;
+      color: #ff9900;
+    }
+
+    .order p {
+      font-size: 16px;
+      margin: 5px 0;
+    }
+
+    .status {
+      font-weight: bold;
+      color: green;
+    }
+
+    .cancel-btn {
+      background: red;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    .cancel-btn:hover {
+      background: darkred;
+    }
+
+    footer {
+      background-color: #222;
+      color: white;
+      padding: 15px;
+      margin-top: 30px;
+    }
+
+    /* Feedback Form */
+    .feedback-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      text-align: left;
+    }
+
+    .feedback-container h2 {
+      color: #ff6600;
+      text-align: center;
+    }
+
+    .feedback-container input,
+    .feedback-container textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    /* Star Rating */
+    .star-rating {
+      direction: rtl;
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .star-rating input[type="radio"] {
+      display: none;
+    }
+
+    .star-rating label {
+      cursor: pointer;
+      color: #ccc;
+      transition: color 0.3s;
+    }
+
+    .star-rating input[type="radio"]:checked ~ label,
+    .star-rating label:hover,
+    .star-rating label:hover ~ label {
+      color: gold;
+    }
+
+    .submit-btn {
+      background-color: #ffcc00;
+      color: black;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto;
+      transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+      background-color: #ff9900;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">Hungerbaz</div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="cart.html">Cart</a>
+      <a href="orderDetails.html">Orders</a>
+      <a href="our team.html">Restaurants</a>
+      <a href="aboutus.html">About Us</a>
+    </nav>
+  </header>
+
+  <!-- Active Orders -->
+  <div class="orders-container">
+    <h2>Active Orders</h2>
+
+    <div class="order">
+      <h3>Order #201</h3>
+      <p><strong>Items:</strong> Paneer Tikka</p>
+      <p><strong>Total Price:</strong> ₹ 180</p>
+      <p><strong>Delivery Address:</strong> 789 Street,  Pune City</p>
+      <p><strong>Estimated Arrival:</strong> 25-35 mins</p>
+      <p><strong>Status:</strong> <span class="status">Preparing</span></p>
+      <button class="cancel-btn" onclick="cancelOrder(this)">Cancel Order</button>
+    </div>
+
+    <div class="order">
+      <h3>Order #202</h3>
+      <p><strong>Items:</strong> Margherita Pizza</p>
+      <p><strong>Total Price:</strong> ₹ 250</p>
+      <p><strong>Delivery Address:</strong> Flat no-102, JM road ,Deccan</p>
+      <p><strong>Estimated Arrival:</strong> 20-30 mins</p>
+      <p><strong>Status:</strong> <span class="status">Out for Delivery</span></p>
+      <button class="cancel-btn" onclick="cancelOrder(this)">Cancel Order</button>
+    </div>
+  </div>
+
+  <!-- Order History -->
+  <div class="history-container">
+    <h2>Order History</h2>
+
+    <div class="order">
+      <h3>Order #101</h3>
+      <p><strong>Items:</strong> Punjabi Combo</p>
+      <p><strong>Total Price:</strong> ₹ 310</p>
+      <p><strong>Delivery Address:</strong> Chandani House, 123 Street, Pune City</p>
+      <p><strong>Delivered On:</strong> March 10, 2025</p>
+      <p><strong>Status:</strong> <span class="status" style="color: blue;">Completed</span></p>
+    </div>
+
+    <div class="order">
+      <h3>Order #102</h3>
+      <p><strong>Items:</strong> Lassi, Faln</p>
+      <p><strong>Total Price:</strong> ₹ 210</p>
+      <p><strong>Delivery Address:</strong> Flat-121, Chandan Garden, Kolhapur</p>
+      <p><strong>Delivered On:</strong> March 5, 2025</p>
+      <p><strong>Status:</strong> <span class="status" style="color: blue;">Completed</span></p>
+    </div>
+  </div>
+
+  <!-- Feedback Form -->
+  <div class="feedback-container">
+    <h2>Give Us Your Feedback</h2>
+    <form action="#" method="post">
+      <label for="fb-name"><strong>Name:</strong></label>
+      <input type="text" id="fb-name" name="name" required />
+
+      <label for="fb-email"><strong>Email:</strong></label>
+      <input type="email" id="fb-email" name="email" required />
+
+      <label><strong>Rating:</strong></label>
+      <div class="star-rating">
+        <input type="radio" id="star5" name="rating" value="5" /><label for="star5">&#9733;</label>
+        <input type="radio" id="star4" name="rating" value="4" /><label for="star4">&#9733;</label>
+        <input type="radio" id="star3" name="rating" value="3" /><label for="star3">&#9733;</label>
+        <input type="radio" id="star2" name="rating" value="2" /><label for="star2">&#9733;</label>
+        <input type="radio" id="star1" name="rating" value="1" /><label for="star1">&#9733;</label>
+      </div>
+
+      <label for="fb-message"><strong>Your Feedback:</strong></label>
+      <textarea id="fb-message" name="message" rows="5" required></textarea>
+
+      <button type="submit" class="submit-btn">Submit Feedback</button>
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Hungerbaz. All rights reserved.</p>
+  </footer>
+
+  <!-- Cancel Order Script -->
+  <script>
+    function cancelOrder(button) {
+      const order = button.parentElement;
+      const statusElement = order.querySelector(".status");
+      if (statusElement.textContent === "Preparing") {
+        alert("Your order has been canceled.");
+        order.remove();
+      } else {
+        alert("Sorry, you cannot cancel an order that is already out for delivery.");
+      }
+    }
+  </script>
+
+</body>
+</html>

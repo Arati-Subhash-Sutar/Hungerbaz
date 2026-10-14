@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Order Confirmation - Hungerbaz</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f8f8f8;
+    margin: 0;
+    padding: 20px;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    margin-bottom: 20px;
+  }
+  th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  th {
+    background-color: #eee;
+  }
+  .address-form {
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  .address-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  .address-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  .confirm-btn {
+    display: block;
+    width: 200px;
+    margin: 0 auto;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .confirm-btn:hover {
+    background-color: #218838;
+  }
+</style>
+</head>
+<body>
+
+<h1>Order Confirmation</h1>
+
+<table id="order-table">
+  <thead>
+    <tr>
+      <th>Item Name</th>
+      <th>Quantity</th>
+      <th>Total Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Items will be dynamically inserted here -->
+  </tbody>
+</table>
+
+<div class="address-form">
+  <h3>Delivery Details</h3>
+  <form id="order-form">
+  <label for="fullName">Full Name:</label>
+  <input type="text" id="fullName" placeholder="Enter your full name" required />
+
+  <label for="deliveryAddress">Delivery Address:</label>
+  <input type="text" id="deliveryAddress" placeholder="Enter your address" required />
+
+  <label for="phoneNumber">Phone Number:</label>
+  <input type="tel" id="phoneNumber" placeholder="Enter your phone number" required />
+
+  <button type="submit" class="confirm-btn">Confirm Order</button>
+</form>
+</div>
+
+<script>
+ 
+    // Prepare order data to send to server
+    const orderData = {
+      customerName: fullName,
+      deliveryAddress: address,
+      phoneNumber: phone,
+      items: orderItems,
+      orderDate: new Date().toISOString()
+    };
+
+    // Send order data to server (replace URL with your API endpoint)
+    fetch('https://yourserver.com/api/saveOrder', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(orderData)
+    })
+    .then(response => response.json())
+    .then(data => {
+      alert('Order placed successfully! Thank you for ordering.');
+      // Clear cart after successful order
+      localStorage.removeItem('hungerbazCart');
+      // Redirect to homepage or order summary page
+      window.location.href = 'home.html';
+    })
+    .catch(error => {
+      console.error('Error saving order:', error);
+      alert('There was an error processing your order. Please try again.');
+    });
+  });
+
+  // Initialize page
+  window.onload = function() {
+    populateOrderTable();
+  };
+
+function populateOrderTable() {
+    const orderTableBody = document.querySelector('#order-table tbody');
+    const currentOrder = JSON.parse(localStorage.getItem('currentOrder')) || [];
+
+    // Clear existing rows
+    orderTableBody.innerHTML = '';
+
+    currentOrder.forEach(item => {
+        const totalPrice = (item.price * item.quantity).toFixed(2);
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+            <td>${item.name}</td>
+            <td>${item.quantity}</td>
+            <td>₹${totalPrice}</td>
+        `;
+
+        orderTableBody.appendChild(row);
+    });
+}
+
+// Call populateOrderTable on page load
+window.onload = populateOrderTable;
+
+// Populate order table from localStorage
+function populateOrderTable() {
+    const orderTableBody = document.querySelector('#order-table tbody');
+    const currentOrder = JSON.parse(localStorage.getItem('currentOrder')) || [];
+
+    orderTableBody.innerHTML = ''; // Clear existing rows
+
+    if (currentOrder.length === 0) {
+        const emptyRow = document.createElement('tr');
+        emptyRow.innerHTML = `<td colspan="3">Your order is empty.</td>`;
+        orderTableBody.appendChild(emptyRow);
+        return;
+    }
+
+    currentOrder.forEach(item => {
+        const totalPrice = (item.price * item.quantity).toFixed(2);
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${item.name}</td>
+            <td>${item.quantity}</td>
+            <td>₹${totalPrice}</td>
+        `;
+        orderTableBody.appendChild(row);
+    });
+}
+
+// Call populateOrderTable on page load
+window.onload = populateOrderTable;
+
+// Handle order form submission
+document.getElementById('order-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const fullName = document.getElementById('fullName').value.trim();
+    const deliveryAddress = document.getElementById('deliveryAddress').value.trim();
+    const phoneNumber = document.getElementById('phoneNumber').value.trim();
+    const orderItems = JSON.parse(localStorage.getItem('currentOrder')) || [];
+
+    if (!fullName || !deliveryAddress || !phoneNumber) {
+        alert('Please fill in all delivery details.');
+        return;
+    }
+
+    if (orderItems.length === 0) {
+        alert('Your order is empty.');
+        return;
+    }
+
+    const orderData = {
+        customerName: fullName,
+        deliveryAddress: deliveryAddress,
+        phoneNumber: phoneNumber,
+        items: orderItems,
+        orderDate: new Date().toISOString()
+    };
+
+    // Example: send order data to server (replace URL with your API endpoint)
+    fetch('https://yourserver.com/api/saveOrder', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(orderData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert('Order placed successfully! Thank you for ordering.');
+        // Clear order from localStorage
+        localStorage.removeItem('currentOrder');
+        // Redirect to home or order summary page
+        window.location.href = 'home.html';
+    })
+    .catch(error => {
+        console.error('Error saving order:', error);
+        alert('There was an error processing your order. Please try again.');
+    });
+});
+</script>
+
+</body>
+</html>

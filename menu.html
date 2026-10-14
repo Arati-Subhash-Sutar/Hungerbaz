@@ -1,0 +1,3406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hungerbaz - Full Menu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Base Styles */
+         body {  
+ 		 background-color: #f9f9f9;
+                       margin: 0;  
+            font-family: Arial, sans-serif;  
+            text-align: center;  
+        }  
+
+          /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background: #333;
+            color: white;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-family: Lucida Handwriting;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            margin: 0 15px;
+            font-size: 18px;
+        }
+
+        nav a:hover {
+            color: yellow;
+        }
+
+	nav a:active {
+		color: yellow;
+	}
+
+            .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+/* Search Bar */  
+        .search-container {  
+            text-align: center;  
+            margin: 20px;  
+        }  
+
+        .search-bar {  
+            width: 60%;  
+            padding: 10px;  
+            font-size: 18px;  
+            border-radius: 5px;  
+            border: none;
+	box-shadow: 0 3px 10px rgba(0,0,0,0.1);  
+        }  
+
+        .search-btn {  
+            padding: 10px 15px;  
+            background: #ffcc00;  
+            border: none;  
+            cursor: pointer;  
+            font-size: 18px;  
+            border-radius: 5px; 
+	box-shadow: 0 3px 10px rgba(0,0,0,0.1); 
+        }  
+
+        .search-btn:hover {  
+            background: #ff9900;  
+        }  
+
+        a:active {  
+            color: yellow;  
+        }  
+
+
+        /* Menu Categories Tabs */
+        
+        .menu-tab {
+            padding: 12px 25px;
+            cursor: pointer;
+            font-weight: bold;
+            background: #ffcc00;
+            margin-right: 10px;
+            border-radius: 5px 5px 0 0;
+            transition: all 0.3s;
+	box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .menu-tab.active {
+            background: #ff9900;
+            color: white;
+        }
+        
+        .menu-tab:hover:not(.active) {
+            background: #ffcc00;
+        }
+
+
+        
+        /* Cuisine Filter */
+        .cuisine-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .cuisine-btn {
+            padding: 8px 15px;
+            border: 1px solid #ffcc00;
+            background: #ffcc00;
+            color: #333;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+	box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .cuisine-btn.active {
+            background: #ff9900;
+            color: white;
+        }
+        
+        .cuisine-btn:hover:not(.active) {
+            background: #ffcc00;
+        }
+        
+        /* Menu Carousel */
+        .menu-carousel {
+            position: relative;
+            margin: 40px 0;
+            overflow: hidden;
+        }
+        
+        .carousel-container {
+            display: flex;
+            transition: transform 0.5s ease;
+            width: 100%;
+        }
+        
+        .menu-items {
+            display: flex;
+            min-width: 100%;
+            gap: 25px;
+            padding: 10px 0;
+        }
+        
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            background: #ddd;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .carousel-dot.active {
+            background: #ffcc00;
+        }
+        
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+        
+        .carousel-arrow:hover {
+            background: #ff9f43;
+            color: white;
+        }
+        
+        .carousel-arrow.prev {
+            left: 10px;
+        }
+        
+        .carousel-arrow.next {
+            right: 10px;
+        }
+        
+        /* Menu Items */
+        .menu-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            min-width: 250px;
+            flex: 1;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .item-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .item-details {
+            padding: 15px;
+        }
+        
+        .item-name {
+            font-weight: bold;
+            font-size: 18px;
+            margin: 5px 0;
+        }
+        
+        .item-description {
+            color: #666;
+            font-size: 14px;
+            margin: 8px 0;
+        }
+        
+        .item-price {
+            color: #ff9f43;
+            font-weight: bold;
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        
+        .item-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        
+        .add-to-cart, .order-now {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .add-to-cart {
+            background: #ffcc00;
+            color: #333;
+        }
+        
+        .order-now {
+            background: #ffcc00;
+            color: #333;
+        }
+        
+        .add-to-cart:hover {
+            background: #ff9900;
+        }
+        
+        .order-now:hover {
+            background: #ff9900;
+        }
+        
+        /* Veg/Non-Veg Icons */
+        .veg-icon {
+            width: 16px;
+            height: 16px;
+            border: 1px solid green;
+            position: relative;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        
+        .veg-icon::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: green;
+            border-radius: 50%;
+            top: 3px;
+            left: 3px;
+        }
+        
+        .nonveg-icon {
+            width: 16px;
+            height: 16px;
+            border: 1px solid red;
+            position: relative;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        
+        .nonveg-icon::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: red;
+            border-radius: 50%;
+            top: 3px;
+            left: 3px;
+        }
+        
+        /* Spice Level Indicator */
+        .spice-level {
+            display: flex;
+            margin: 5px 0;
+        }
+        
+        .spice-dot {
+            width: 12px;
+            height: 12px;
+            background: #ddd;
+            border-radius: 50%;
+            margin-right: 3px;
+        }
+        
+        .spice-dot.active {
+            background: #ffcc00;
+        }
+        
+        /* Category Title */
+        .category-title {
+            font-size: 24px;
+            margin: 30px 0 15px;
+            color: #333;
+            position: relative;
+            padding-bottom: 10px;
+	text-align: left;
+        }
+        
+        .category-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #ff9f43;
+        }
+
+
+         /* Footer */
+        footer {
+            background-color: #222;
+            color: white;
+            padding: 15px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+                   <div class="logo">Hungerbaz</div>
+            <nav> 
+            <a href="home.html">Home</a>  
+            <a href="menu.html">Menu</a>  
+          <a href="cart.html" id="cart-link">Cart</a>   
+            <a href="orderDetails1.html">Orders</a>  
+            <a href="our team.html">Restaurants</a>  
+            <a href="aboutus.html">About Us</a>   
+            </nav>
+    </header>
+
+    <div class="container">
+        <h1 style="font-family: Georgia, serif;">Our Full Menu</h1>
+	<h3 style="font-family: Georgia, serif;">We Provide Original Taste From Every Country...</h3>
+
+
+<div class="search-container">
+  <input type="text" id="search-input" class="search-bar" placeholder="Search for food...">
+  <button id="search-btn" class="search-btn">Search</button>
+</div>   
+        
+   <!-- Cuisine Filter -->
+    <div class="cuisine-filter">
+      <div class="cuisine-btn active" data-cuisine="all">All Cuisines</div>
+      <div class="cuisine-btn" data-cuisine="indian">Indian</div>
+      <div class="cuisine-btn" data-cuisine="mexican">Mexican</div>
+      <div class="cuisine-btn" data-cuisine="chinese">Chinese</div>
+      <div class="cuisine-btn" data-cuisine="italian">Italian</div>
+    </div>
+
+  <!-- Appetizers Section -->
+        <h2 class="category-title">Appetizers</h2>
+        <div class="menu-carousel">
+            <button class="carousel-arrow prev">&lt;</button>
+            <div class="carousel-container" id="appetizers-carousel">
+                <div class="menu-items">
+
+                    <!-- Indian Appetizers -->
+                    <div class="menu-item" data-cuisine="indian">
+                        <img src="Images/samosa.jpg" alt="Samosa" class="item-image">
+                        <div class="item-details">
+                            <div class="veg-icon"></div>
+                            <div class="item-name">Samosa</div>
+                            <div class="item-description">Crispy pastry filled with spiced potatoes and peas</div>
+                            <div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot"></div>
+                            </div>
+                            <div class="item-price">₹50</div>
+                            <div class="item-actions">
+                                <button class="add-to-cart">Add to Cart</button>
+                                <button class="order-now">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" data-cuisine="indian">
+                        <img src="Images/paneer_tikka.jpg" alt="Paneer Tikka" class="item-image">
+                        <div class="item-details">
+                            <div class="veg-icon"></div>
+                            <div class="item-name">Paneer Tikka</div>
+                            <div class="item-description">Grilled cottage cheese marinated in spices</div>
+                            <div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                            </div>
+                            <div class="item-price">₹180</div>
+                            <div class="item-actions">
+                                <button class="add-to-cart">Add to Cart</button>
+                                <button class="order-now">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Dahi Wada -->
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/Dahi Wada.jpg" alt="Dahi Wada" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Dahi Wada</div>
+        <div class="item-description">Fried lentil dumplings in yogurt with chutneys</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹120</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- Pani Puri -->
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/Pani Puri.jpg" alt="Pani Puri" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Pani Puri</div>
+        <div class="item-description">Crisp hollow puris filled with spicy tamarind water</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+        </div>
+        <div class="item-price">₹60</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- Onion Bhaji -->
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/Onion Bhaji.jpg" alt="Onion Bhaji" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Onion Bhaji</div>
+        <div class="item-description">Deep-fried onion fritters served with chutney</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹100</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- Bhel Puri -->
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/Bhel Puri.jpg" alt="Bhel Puri" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Bhel Puri</div>
+        <div class="item-description">Puffed rice mixed with vegetables and tangy sauces</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹80</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- Kachories -->
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/Kachories.jpg" alt="Kachories" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Kachories</div>
+        <div class="item-description">Deep-fried flaky pastry stuffed with lentils</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹90</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- Papri Chat -->
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/Papri Chat.jpg" alt="Papri Chat" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Papri Chat</div>
+        <div class="item-description">Crispy wafers topped with potatoes and chutneys</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹110</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>      
+	              
+
+                    <!-- Mexican Appetizers -->
+                    <div class="menu-item" data-cuisine="mexican">
+                        <img src="Images/loaded_nachos.jpg" alt="Nachos" class="item-image">
+                        <div class="item-details">
+                            <div class="veg-icon"></div>
+                            <div class="item-name">Loaded Nachos</div>
+                            <div class="item-description">Crispy tortilla chips topped with cheese, beans, and salsa</div>
+                            <div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot"></div>
+                                <div class="spice-dot"></div>
+                            </div>
+                            <div class="item-price">₹220</div>
+                            <div class="item-actions">
+                                <button class="add-to-cart">Add to Cart</button>
+                                <button class="order-now">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+<!-- Sopes (Veg) -->
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/sopes.jpg" alt="Sopes" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Sopes</div>
+        <div class="item-description">Thick corn dough bases topped with beans, cheese, and salsa</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹160</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- Taquitos (Non-Veg) -->
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/taquitos.jpg" alt="Taquitos" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Taquitos</div>
+        <div class="item-description">Crispy rolled tortillas filled with shredded chicken</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+        </div>
+        <div class="item-price">₹200</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- Elote (Veg) -->
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/elote.jpg" alt="Elote" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Elote</div>
+        <div class="item-description">Grilled Mexican street corn with chili-lime mayo</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹140</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- Chilaquiles (Veg) -->
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/chilaquiles.jpg" alt="Chilaquiles" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Chilaquiles</div>
+        <div class="item-description">Crispy tortilla chips simmered in salsa verde</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹180</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- Queso Fundido (Veg) -->
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Queso Fundido.jpg" alt="Queso Fundido" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Queso Fundido</div>
+        <div class="item-description">Melted cheese dip with roasted poblano peppers</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹220</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- Empanadas (Non-Veg) -->
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/empanadas.jpg" alt="Empanadas" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Empanadas</div>
+        <div class="item-description">Golden pastry pockets filled with seasoned beef</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹240</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- Veggie Fajitas -->
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Veggie Fajitas.jpg" alt="Veggie Fajitas" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Veggie Fajitas</div>
+        <div class="item-description">Sizzling grilled vegetables with warm tortillas</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹260</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+                    
+                    <!-- Chinese Appetizers -->
+                    <div class="menu-item" data-cuisine="chinese">
+                        <img src="Images/spring_roll.jpg" alt="Spring Roll" class="item-image">
+                        <div class="item-details">
+                            <div class="veg-icon"></div>
+                            <div class="item-name">Spring Roll</div>
+                            <div class="item-description">Crispy rolls filled with vegetables</div>
+                            <div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot"></div>
+                                <div class="spice-dot"></div>
+                            </div>
+                            <div class="item-price">₹120</div>
+                            <div class="item-actions">
+                                <button class="add-to-cart">Add to Cart</button>
+                                <button class="order-now">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+<!-- 1. Veg Manchurian -->
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/veg_manchurian.jpg" alt="Veg Manchurian" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Veg Manchurian</div>
+        <div class="item-description">Fried vegetable balls in tangy Manchurian sauce</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹150</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- 2. Chicken Lollipop -->
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/chicken_lollipop.jpg" alt="Chicken Lollipop" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Chicken Lollipop</div>
+        <div class="item-description">French-cut chicken wings in spicy red sauce</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+        </div>
+        <div class="item-price">₹220</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- 3. Chilli Paneer -->
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/chilli_paneer.jpg" alt="Chilli Paneer" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Chilli Paneer</div>
+        <div class="item-description">Crispy cottage cheese in garlic-chilli sauce</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+        </div>
+        <div class="item-price">₹180</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- 4. Chilli Chicken -->
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/chilli_chicken.jpg" alt="Chilli Chicken" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Chilli Chicken</div>
+        <div class="item-description">Crispy chicken tossed in schezwan sauce</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+        </div>
+        <div class="item-price">₹240</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- 9. Schezwan Potato -->
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/schezwan_potato.jpg" alt="Schezwan Potato" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Schezwan Potato</div>
+        <div class="item-description">Crispy potato wedges in fiery schezwan sauce</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+        </div>
+        <div class="item-price">₹170</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- 6. Gobi Manchurian -->
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/gobi_manchurian.jpg" alt="Gobi Manchurian" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Gobi Manchurian</div>
+        <div class="item-description">Crispy cauliflower in sweet-spicy sauce</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹160</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- 7. Drums of Heaven -->
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/drums_of_heaven.jpg" alt="Drums of Heaven" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Drums of Heaven</div>
+        <div class="item-description">Chicken drumsticks in honey-chilli glaze</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹260</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+                    
+                    <!-- Italian Appetizers -->
+                    <div class="menu-item" data-cuisine="italian">
+                        <img src="Images/bruschetta.jpg" alt="Bruschetta" class="item-image">
+                        <div class="item-details">
+                            <div class="veg-icon"></div>
+                            <div class="item-name">Bruschetta</div>
+                            <div class="item-description">Toasted bread topped with tomatoes, garlic and basil</div>
+                            <div class="spice-level">
+                                <div class="spice-dot"></div>
+                                <div class="spice-dot"></div>
+                                <div class="spice-dot"></div>
+                            </div>
+                            <div class="item-price">₹190</div>
+                            <div class="item-actions">
+                                <button class="add-to-cart">Add to Cart</button>
+                                <button class="order-now">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+<!-- 2. Caprese Salad -->
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/caprese.jpg" alt="Caprese Salad" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Caprese Salad</div>
+        <div class="item-description">Fresh mozzarella, tomatoes, and basil with balsamic glaze</div>
+        <div class="spice-level">
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹250</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- 3. Fried Calamari -->
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/calamari.jpg" alt="Fried Calamari" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Fritto di Calamari</div>
+        <div class="item-description">Crispy fried squid rings with marinara sauce</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹320</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- 4. Arancini -->
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/arancini.jpg" alt="Arancini" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Arancini</div>
+        <div class="item-description">Crispy risotto balls filled with mozzarella</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹220</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- 5. Prosciutto e Melone -->
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/prosciutto_melone.jpg" alt="Prosciutto e Melone" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Prosciutto e Melone</div>
+        <div class="item-description">Cured ham with sweet cantaloupe slices</div>
+        <div class="spice-level">
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹380</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- 6. Funghi Ripieni -->
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/stuffed_mushrooms.jpg" alt="Stuffed Mushrooms" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Funghi Ripieni</div>
+        <div class="item-description">Mushrooms stuffed with herbs and parmesan</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹280</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- 7. Antipasto Misto -->
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/antipasto.jpg" alt="Antipasto Platter" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Antipasto Misto</div>
+        <div class="item-description">Cured meats, cheeses, and marinated vegetables</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹450</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- 8. Focaccia al Rosmarino -->
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/focaccia.jpg" alt="Focaccia" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Focaccia al Rosmarino</div>
+        <div class="item-description">Herb-infused olive oil bread with rosemary</div>
+        <div class="spice-level">
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹190</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- 9. Burrata con Pesto -->
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/burrata.jpg" alt="Burrata" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Burrata con Pesto</div>
+        <div class="item-description">Creamy cheese with basil pesto and cherry tomatoes</div>
+        <div class="spice-level">
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹360</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+                </div>
+            </div>
+            <button class="carousel-arrow next">&gt;</button>
+            <div class="carousel-nav">
+                <div class="carousel-dot active"></div>
+                <div class="carousel-dot"></div>
+            </div>
+        </div>
+        
+        <!-- Main Dishes Section -->
+        <h2 class="category-title">Main Dishes</h2>
+        <div class="menu-carousel">
+            <button class="carousel-arrow prev">&lt;</button>
+            <div class="carousel-container" id="main-carousel">
+                <div class="menu-items">
+
+                    <!-- Indian Main Dishes -->
+                    <div class="menu-item" data-cuisine="indian">
+                        <img src="Images/Butter Chicken.jpg" alt="Butter Chicken" class="item-image">
+                        <div class="item-details">
+                            <div class="nonveg-icon"></div>
+                            <div class="item-name">Butter Chicken</div>
+                            <div class="item-description">Tender chicken in creamy tomato gravy</div>
+                            <div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot"></div>
+                            </div>
+                            <div class="item-price">₹280</div>
+                            <div class="item-actions">
+                                <button class="add-to-cart">Add to Cart</button>
+                                <button class="order-now">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+<!--  Indian Dishes -->
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/Paneer-Butter-Masala.jpg" alt="Paneer Butter Masala" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Paneer Butter Masala</div>
+        <div class="item-description">Creamy tomato-based cottage cheese curry</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹270</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/Chicken-Curry.jpg" alt="Chicken Curry" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Chicken Curry</div>
+        <div class="item-description">Country-style chicken in onion-tomato gravy</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹300</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/Chole-Bhature.jpg" alt="Chole Bhature" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Chole Bhature</div>
+        <div class="item-description">Spicy chickpeas with fried bread</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+        </div>
+        <div class="item-price">₹180</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/Fish-Fry.jpg" alt="Fish Fry" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Fish Fry</div>
+        <div class="item-description">Crispy marinated basa fillets</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹280</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/Dal-Tadka.jpg" alt="Dal Tadka" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Dal Tadka</div>
+        <div class="item-description">Tempered lentils with garlic tempering</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹200</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/Lamb-Rogan-Josh.jpg" alt="Lamb Rogan Josh" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Lamb Rogan Josh</div>
+        <div class="item-description">Kashmiri red meat curry with aromatics</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+        </div>
+        <div class="item-price">₹380</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/Vegetable-Biryani.jpg" alt="Vegetable Biryani" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Vegetable Biryani</div>
+        <div class="item-description">Layered rice with mixed vegetables</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹250</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/Egg-Curry.jpg" alt="Egg Curry" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Egg Curry</div>
+        <div class="item-description">Boiled eggs in spicy onion gravy</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹220</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+                    
+                    <div class="menu-item" data-cuisine="indian">
+                        <img src="Images/Dal Makhani.jpg" alt="Dal Makhani" class="item-image">
+                        <div class="item-details">
+                            <div class="veg-icon"></div>
+                            <div class="item-name">Dal Makhani</div>
+                            <div class="item-description">Creamy black lentils cooked overnight</div>
+                            <div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot"></div>
+                                <div class="spice-dot"></div>
+                            </div>
+                            <div class="item-price">₹200</div>
+                            <div class="item-actions">
+                                <button class="add-to-cart">Add to Cart</button>
+                                <button class="order-now">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mexican Main Dishes -->
+                    <div class="menu-item" data-cuisine="mexican">
+                        <img src="Images/Chicken Enchiladas.jpg" alt="Enchiladas" class="item-image">
+                        <div class="item-details">
+                            <div class="nonveg-icon"></div>
+                            <div class="item-name">Chicken Enchiladas</div>
+                            <div class="item-description">Corn tortillas rolled around chicken filling and covered with chili sauce</div>
+                            <div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                            </div>
+                            <div class="item-price">₹320</div>
+                            <div class="item-actions">
+                                <button class="add-to-cart">Add to Cart</button>
+                                <button class="order-now">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+<!-- Mexican Main Dishes -->
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Veggie-Tacos.jpg" alt="Veggie Tacos" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Veggie Tacos</div>
+        <div class="item-description">Grilled zucchini, peppers & Oaxaca cheese</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹320</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Chicken-Tinga-Tacos.jpg" alt="Chicken Tinga Tacos" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Chicken Tinga Tacos</div>
+        <div class="item-description">Shredded chipotle chicken with pickled onions</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+        </div>
+        <div class="item-price">₹380</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Cheese-Enchiladas.jpg" alt="Cheese Enchiladas" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Cheese Enchiladas</div>
+        <div class="item-description">Corn tortillas filled with queso fresco</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹350</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Carnitas-Platter.jpg" alt="Carnitas Platter" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Carnitas Platter</div>
+        <div class="item-description">Slow-cooked pork with cilantro rice</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹420</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Rajas-Con-Crema.jpg" alt="Rajas con Crema" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Rajas con Crema</div>
+        <div class="item-description">Poblano peppers in creamy corn sauce</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹380</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Carne-Asada.jpg" alt="Carne Asada" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Carne Asada</div>
+        <div class="item-description">Marinated flank steak with charro beans</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹450</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Vegetarian-Pozole.jpg" alt="Vegetarian Pozole" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Vegetarian Pozole</div>
+        <div class="item-description">Hominy stew with avocado & radish</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹340</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Pescado-Zarandeado.jpg" alt="Pescado Zarandeado" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Pescado Zarandeado</div>
+        <div class="item-description">Grilled whole fish with chili marinade</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+        </div>
+        <div class="item-price">₹500</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+                    
+                    <!-- Chinese Main Dishes -->
+                    <div class="menu-item" data-cuisine="chinese">
+                        <img src="Images/Vegetable Fried Rice.jpg" alt="Fried Rice" class="item-image">
+                        <div class="item-details">
+                            <div class="veg-icon"></div>
+                            <div class="item-name">Vegetable Fried Rice</div>
+                            <div class="item-description">Stir-fried rice with mixed vegetables and sauces</div>
+                            <div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot"></div>
+                                <div class="spice-dot"></div>
+                            </div>
+                            <div class="item-price">₹180 (bowl)</div>
+                            <div class="item-actions">
+                                <button class="add-to-cart">Add to Cart</button>
+                                <button class="order-now">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/hakka_noodles.jpg" alt="Hakka Noodles" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Indo-Chinese Hakka Noodles</div>
+        <div class="item-description">Stir-fried noodles with vegetables and Indo-Chinese spices</div>
+        <div class="item-price">₹120 (plate)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/dumplings.jpg" alt="Dumplings" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Dumplings</div>
+        <div class="item-description">Soft steamed dumplings filled with seasoned vegetables</div>
+        <div class="item-price">₹130 (6 pcs)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/wontons.jpg" alt="Wontons" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Wontons</div>
+        <div class="item-description">Crispy fried wontons with savory fillings</div>
+        <div class="item-price">₹140 (6 pcs)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/egg_rolls.jpg" alt="Egg Rolls" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Egg Rolls</div>
+        <div class="item-description">Crispy rolls filled with shredded vegetables and egg</div>
+        <div class="item-price">₹125 (2 pcs)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/tofu_skewers.jpg" alt="Tofu Skewers" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Tofu Skewers</div>
+        <div class="item-description">Grilled tofu cubes marinated in spicy Szechuan sauce</div>
+        <div class="item-price">₹135 (4 skewers)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/potstickers.jpg" alt="Potstickers" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Potstickers</div>
+        <div class="item-description">Pan-fried dumplings with a crispy bottom and soft top</div>
+        <div class="item-price">₹140 (6 pcs)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/kung_pao_chicken.jpg" alt="Kung Pao Chicken" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Kung Pao Chicken</div>
+        <div class="item-description">Stir-fried chicken with peanuts, vegetables, and chili peppers</div>
+        <div class="item-price">₹160 (plate)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+                    
+                    <!-- Italian Main Dishes -->
+
+<!-- Italian Main Dishes -->
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/Margherita-Pizza.jpg" alt="Margherita Pizza" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Margherita Pizza</div>
+        <div class="item-description">Wood-fired pizza with fresh mozzarella & basil</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹320</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/Spaghetti-Carbonara.jpg" alt="Spaghetti Carbonara" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Spaghetti Carbonara</div>
+        <div class="item-description">Creamy pasta with pancetta & egg yolk</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹420</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/Eggplant-Parmigiana.jpg" alt="Eggplant Parmigiana" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Eggplant Parmigiana</div>
+        <div class="item-description">Layered eggplant with tomato & Parmesan</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹360</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/Chicken-Lasagna.jpg" alt="Chicken Lasagna" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Chicken Lasagna</div>
+        <div class="item-description">Layered pasta with grilled chicken & béchamel</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹450</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/Mushroom-Risotto.jpg" alt="Mushroom Risotto" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Mushroom Risotto</div>
+        <div class="item-description">Creamy Arborio rice with porcini mushrooms</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹380</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/Seafood-Linguine.jpg" alt="Seafood Linguine" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Seafood Linguine</div>
+        <div class="item-description">Pasta with prawns, squid & garlic-white wine sauce</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹620</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/Spinach-Ravioli.jpg" alt="Spinach Ravioli" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Spinach Ravioli</div>
+        <div class="item-description">Stuffed pasta with ricotta & sage butter</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹340</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/Sausage-Risotto.jpg" alt="Sausage Risotto" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Sausage Risotto</div>
+        <div class="item-description">Creamy rice with Italian sausage & peas</div>
+        <div class="spice-level">
+            <div class="spice-dot active"></div>
+            <div class="spice-dot active"></div>
+            <div class="spice-dot"></div>
+        </div>
+        <div class="item-price">₹480</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+                    <div class="menu-item" data-cuisine="italian">
+                        <img src="Images/Pasta Alfredo.jpg" alt="Pasta" class="item-image">
+                        <div class="item-details">
+                            <div class="veg-icon"></div>
+                            <div class="item-name">Pasta Alfredo</div>
+                            <div class="item-description">Pasta in creamy white sauce with herbs</div>
+                            <div class="spice-level">
+                                <div class="spice-dot"></div>
+                                <div class="spice-dot"></div>
+                                <div class="spice-dot"></div>
+                            </div>
+                            <div class="item-price">₹250</div>
+                            <div class="item-actions">
+                                <button class="add-to-cart">Add to Cart</button>
+                                <button class="order-now">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-arrow next">&gt;</button>
+            <div class="carousel-nav">
+                <div class="carousel-dot active"></div>
+                <div class="carousel-dot"></div>
+            </div>
+        </div>
+        
+        <!-- Desserts Section -->
+        <h2 class="category-title">Desserts</h2>
+        <div class="menu-carousel">
+            <button class="carousel-arrow prev">&lt;</button>
+            <div class="carousel-container" id="desserts-carousel">
+                <div class="menu-items">
+
+                    <!-- Indian Desserts -->
+                    <div class="menu-item" data-cuisine="indian">
+                        <img src="Images/Gulab Jamun.jpg" alt="Gulab Jamun" class="item-image">
+                        <div class="item-details">
+                            <div class="veg-icon"></div>
+                            <div class="item-name">Gulab Jamun</div>
+                            <div class="item-description">Soft milk balls soaked in sugar syrup</div>
+                            <div class="item-price">₹90 (2 pieces)</div>
+                            <div class="item-actions">
+                                <button class="add-to-cart">Add to Cart</button>
+                                <button class="order-now">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+<!-- Indian Desserts -->
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/Rasgulla.jpg" alt="Rasgulla" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Rasgulla</div>
+        <div class="item-description">Spongy cottage cheese balls in light syrup</div>
+        <div class="item-price">₹85 (4 pieces)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/Jalebi.jpg" alt="Jalebi" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Jalebi</div>
+        <div class="item-description">Crispy orange coils soaked in syrup</div>
+        <div class="item-price">₹70 (100g)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/Rasmalai.jpg" alt="Rasmalai" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Rasmalai</div>
+        <div class="item-description">Cheese patties in saffron milk</div>
+        <div class="item-price">₹110 (2 pieces)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/Kheer.jpg" alt="Kheer" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Kheer</div>
+        <div class="item-description">Traditional rice pudding with nuts</div>
+        <div class="item-price">₹95 (bowl)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/Gajar-Halwa.jpg" alt="Gajar Halwa" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Gajar Halwa</div>
+        <div class="item-description">Carrot pudding with khoya & dry fruits</div>
+        <div class="item-price">₹120 (150g)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/Malpua.jpg" alt="Malpua" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Malpua</div>
+        <div class="item-description">Sweet pancakes with rabdi</div>
+        <div class="item-price">₹100 (2 pieces)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/Shrikhand.jpg" alt="Shrikhand" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Shrikhand</div>
+        <div class="item-description">Strained yogurt with saffron & cardamom</div>
+        <div class="item-price">₹90 (150g)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/Sandesh.jpg" alt="Sandesh" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Sandesh</div>
+        <div class="item-description">Bengali cottage cheese fudge</div>
+        <div class="item-price">₹80 (4 pieces)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+                    
+                    <!-- Mexican Desserts -->
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Churros.jpg" alt="Churros" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Churros</div>
+        <div class="item-description">Crispy fried dough with chocolate dip</div>
+        <div class="item-price">₹180 (4 pieces)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Tres-Leches-Cake.jpg" alt="Tres Leches Cake" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Tres Leches Cake</div>
+        <div class="item-description">Sponge cake soaked in three kinds of milk</div>
+        <div class="item-price">₹220 (slice)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Flan.jpg" alt="Flan" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Flan</div>
+        <div class="item-description">Caramel custard with vanilla essence</div>
+        <div class="item-price">₹160 (piece)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Arroz-Con-Leche.jpg" alt="Arroz con Leche" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Arroz con Leche</div>
+        <div class="item-description">Creamy Mexican rice pudding with cinnamon</div>
+        <div class="item-price">₹140 (bowl)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Buñuelos.jpg" alt="Buñuelos" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Buñuelos</div>
+        <div class="item-description">Crispy fritters dusted with sugar</div>
+        <div class="item-price">₹120 (3 pieces)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Pastel-de-Elote.jpg" alt="Pastel de Elote" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Pastel de Elote</div>
+        <div class="item-description">Sweet corn cake with whipped cream</div>
+        <div class="item-price">₹200 (slice)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Jericalla.jpg" alt="Jericalla" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Jericalla</div>
+        <div class="item-description">Burnt custard from Guadalajara</div>
+        <div class="item-price">₹170 (piece)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Cajeta-Envinada.jpg" alt="Cajeta Envinada" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Cajeta Envinada</div>
+        <div class="item-description">Goat milk caramel with wine sauce</div>
+        <div class="item-price">₹250 (jar)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- Chinese Desserts -->
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/mooncake.jpg" alt="Mooncake" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Mooncake</div>
+        <div class="item-description">Traditional pastry with sweet lotus seed paste</div>
+        <div class="item-price">₹120 (pc)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/sesameballs.jpg" alt="Sesame Balls" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Sesame Balls</div>
+        <div class="item-description">Crispy rice balls filled with red bean paste</div>
+        <div class="item-price">₹85 (3 pcs)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/mangopudding.jpg" alt="Mango Pudding" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Mango Pudding</div>
+        <div class="item-description">Chilled mango dessert with a creamy texture</div>
+        <div class="item-price">₹100 (cup)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/egg_tart.jpg" alt="Egg Tart" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Egg Tart</div>
+        <div class="item-description">Flaky pastry filled with rich egg custard</div>
+        <div class="item-price">₹75 (pc)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/almine_jelly.jpg" alt="Almond Jelly" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Almond Jelly</div>
+        <div class="item-description">Delicate almond-flavored jelly with fruit</div>
+        <div class="item-price">₹90 (bowl)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/eight_treasure.jpg" alt="Eight Treasure Rice" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Eight Treasure Rice</div>
+        <div class="item-description">Sticky rice dessert with mixed nuts and fruits</div>
+        <div class="item-price">₹130 (bowl)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+                    
+                    <!-- Italian Desserts -->
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/tiramisu.jpg" alt="Tiramisu" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Tiramisu</div>
+        <div class="item-description">Layered coffee-flavored dessert with mascarpone</div>
+        <div class="item-price">₹150 (slice)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/panna_cotta.jpg" alt="Panna Cotta" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Panna Cotta</div>
+        <div class="item-description">Creamy vanilla dessert served with berry sauce</div>
+        <div class="item-price">₹110 (glass)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/cannoli.jpg" alt="Cannoli" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Cannoli</div>
+        <div class="item-description">Fried pastry tubes filled with ricotta cream</div>
+        <div class="item-price">₹95 (2 pcs)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/zeppole.jpg" alt="Zeppole" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Zeppole</div>
+        <div class="item-description">Light Italian doughnuts with powdered sugar</div>
+        <div class="item-price">₹80 (4 pcs)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/gelato.jpg" alt="Gelato" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Gelato</div>
+        <div class="item-description">Authentic Italian-style ice cream</div>
+        <div class="item-price">₹90 (scoop)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/biscotti.jpg" alt="Biscotti" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Biscotti</div>
+        <div class="item-description">Crunchy almond cookies, perfect with coffee</div>
+        <div class="item-price">₹70 (pack)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/affogato.jpg" alt="Affogato" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Affogato</div>
+        <div class="item-description">Vanilla gelato topped with hot espresso</div>
+        <div class="item-price">₹120 (cup)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/sfogliatella.jpg" alt="Sfogliatella" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Sfogliatella</div>
+        <div class="item-description">Layered pastry filled with sweetened ricotta</div>
+        <div class="item-price">₹105 (pc)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+                </div>
+            </div>
+            <button class="carousel-arrow next">&gt;</button>
+            <div class="carousel-nav">
+                <div class="carousel-dot active"></div>
+		 <div class="carousel-dot"></div>
+
+            </div>
+        </div>
+        
+        <!-- Drinks Section -->
+        <h2 class="category-title">Drinks</h2>
+        <div class="menu-carousel">
+            <button class="carousel-arrow prev">&lt;</button>
+            <div class="carousel-container" id="drinks-carousel">
+                <div class="menu-items">
+
+                    <!-- Indian Drinks -->
+                    <div class="menu-item" data-cuisine="indian">
+                        <img src="Images/Mango Lassi.jpg" alt="Lassi" class="item-image">
+                        <div class="item-details">
+                            <div class="veg-icon"></div>
+                            <div class="item-name">Mango Lassi</div>
+                            <div class="item-description">Sweet yogurt drink with mango</div>
+                            <div class="item-price">₹80</div>
+                            <div class="item-actions">
+                                <button class="add-to-cart">Add to Cart</button>
+                                <button class="order-now">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/masala_chai.jpg" alt="Masala Chai" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Masala Chai</div>
+        <div class="item-description">Spiced tea brewed with milk and aromatic herbs</div>
+        <div class="item-price">₹35 (cup)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/lassi.jpg" alt="Lassi" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Lassi</div>
+        <div class="item-description">Traditional yogurt-based drink, sweet or salty</div>
+        <div class="item-price">₹50 (glass)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/jaljeera.jpg" alt="Jaljeera" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Jaljeera</div>
+        <div class="item-description">Refreshing cumin-flavored lemonade</div>
+        <div class="item-price">₹40 (glass)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/badam_milk.jpg" alt="Badam Milk" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Badam Milk</div>
+        <div class="item-description">Warm milk with almonds, saffron, and cardamom</div>
+        <div class="item-price">₹60 (glass)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/aam_panna.jpg" alt="Aam Panna" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Aam Panna</div>
+        <div class="item-description">Cooling summer drink made with raw mango</div>
+        <div class="item-price">₹45 (glass)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/kokum_sherbet.jpg" alt="Kokum Sherbet" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Kokum Sherbet</div>
+        <div class="item-description">Tangy-sweet drink from kokum fruit</div>
+        <div class="item-price">₹55 (glass)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/nimbu_pani.jpg" alt="Nimbu Pani" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Nimbu Pani</div>
+        <div class="item-description">Indian-style lemonade with salt, sugar & spice</div>
+        <div class="item-price">₹30 (glass)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+                    
+                    <!-- Mexican Drinks -->
+                    <div class="menu-item" data-cuisine="mexican">
+                        <img src="Images/margarita.jpg" alt="Margarita" class="item-image">
+                        <div class="item-details">
+                            <div class="veg-icon"></div>
+                            <div class="item-name">Margarita</div>
+                            <div class="item-description">Classic tequila cocktail with lime</div>
+                            <div class="item-price">₹250</div>
+                            <div class="item-actions">
+                                <button class="add-to-cart">Add to Cart</button>
+                                <button class="order-now">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/horchata.jpg" alt="Horchata" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Horchata</div>
+        <div class="item-description">Sweet rice milk with cinnamon and vanilla</div>
+        <div class="item-price">₹70 (glass)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/agua_fresca.jpg" alt="Agua Fresca" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Agua Fresca</div>
+        <div class="item-description">Refreshing fruit water made with watermelon or cantaloupe</div>
+        <div class="item-price">₹60 (glass)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/tamrindo.jpg" alt="Tamarindo" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Tamarindo</div>
+        <div class="item-description">Tamarind juice with a tangy-sweet flavor</div>
+        <div class="item-price">₹65 (glass)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/jamaica.jpg" alt="Agua de Jamaica" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Agua de Jamaica</div>
+        <div class="item-description">Hibiscus flower tea served chilled and sweetened</div>
+        <div class="item-price">₹55 (glass)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/champurrado.jpg" alt="Champurrado" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Champurrado</div>
+        <div class="item-description">Thick Mexican hot chocolate made with masa and spices</div>
+        <div class="item-price">₹75 (cup)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/cafe_de_olla.jpg" alt="Café de Olla" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Café de Olla</div>
+        <div class="item-description">Traditional spiced coffee brewed with cinnamon and piloncillo</div>
+        <div class="item-price">₹70 (cup)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/licuado.jpg" alt="Licuado" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Licuado</div>
+        <div class="item-description">Mexican fruit smoothie with milk and optional oats</div>
+        <div class="item-price">₹80 (glass)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- Chinese Drinks -->
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/jasmine_tea.jpg" alt="Jasmine Tea" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Jasmine Tea</div>
+        <div class="item-description">Fragrant green tea infused with jasmine blossoms</div>
+        <div class="item-price">₹50 (cup)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/bubble_tea.jpg" alt="Bubble Tea" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Bubble Tea</div>
+        <div class="item-description">Milk tea with chewy tapioca pearls</div>
+        <div class="item-price">₹120 (glass)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/soy_milk.jpg" alt="Soy Milk" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Soy Milk</div>
+        <div class="item-description">Freshly made soy milk, lightly sweetened</div>
+        <div class="item-price">₹40 (glass)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/chrysanthemum_tea.jpg" alt="Chrysanthemum Tea" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Chrysanthemum Tea</div>
+        <div class="item-description">Floral herbal tea served chilled or hot</div>
+        <div class="item-price">₹55 (cup)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/plum_juice.jpg" alt="Plum Juice" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Plum Juice</div>
+        <div class="item-description">Sweet and tangy juice made from Chinese plums</div>
+        <div class="item-price">₹65 (glass)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/green_tea.jpg" alt="Green Tea" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Green Tea</div>
+        <div class="item-description">Classic antioxidant-rich Chinese green tea</div>
+        <div class="item-price">₹45 (cup)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/iced_lemon_tea.jpg" alt="Iced Lemon Tea" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Iced Lemon Tea</div>
+        <div class="item-description">Chilled black tea with lemon zest and a hint of sugar</div>
+        <div class="item-price">₹60 (glass)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+                    
+                    <!-- Italian Drinks -->
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/espresso.jpg" alt="Espresso" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Espresso</div>
+        <div class="item-description">Strong Italian black coffee served in a small cup</div>
+        <div class="item-price">₹70 (shot)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/cappuccino.jpg" alt="Cappuccino" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Cappuccino</div>
+        <div class="item-description">Espresso with steamed milk and a thick layer of foam</div>
+        <div class="item-price">₹90 (cup)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/macchiato.jpg" alt="Macchiato" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Macchiato</div>
+        <div class="item-description">Espresso topped with a small amount of foamed milk</div>
+        <div class="item-price">₹85 (cup)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/mocha.jpg" alt="Caffè Mocha" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Caffè Mocha</div>
+        <div class="item-description">Espresso mixed with chocolate and steamed milk</div>
+        <div class="item-price">₹100 (cup)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/italian_soda.jpg" alt="Italian Soda" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Italian Soda</div>
+        <div class="item-description">Fizzy soda water flavored with fruit syrup</div>
+        <div class="item-price">₹75 (glass)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/affogato.jpg" alt="Affogato" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Affogato</div>
+        <div class="item-description">Vanilla gelato drowned in hot espresso</div>
+        <div class="item-price">₹130 (serving)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/limoncello.jpg" alt="Limoncello" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Limoncello (Non-Alcoholic)</div>
+        <div class="item-description">Zesty lemon drink inspired by the famous Italian liqueur</div>
+        <div class="item-price">₹85 (glass)</div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+                        </div>
+            </div>
+            <button class="carousel-arrow next">&gt;</button>
+            <div class="carousel-nav">
+                <div class="carousel-dot active"></div>
+		 <div class="carousel-dot"></div>
+
+            </div>
+        </div>
+        
+        <!-- Combos Section -->
+        <h2 class="category-title">Special Combos</h2>
+        <div class="menu-carousel">
+            <button class="carousel-arrow prev">&lt;</button>
+            <div class="carousel-container" id="combos-carousel">
+                <div class="menu-items">
+
+                    <!-- Indian Combo -->
+                    <div class="menu-item" data-cuisine="indian">
+                        <img src="Images/Royal Thali.jpg" alt="Thali Combo" class="item-image">
+                        <div class="item-details">
+                            <div class="veg-icon"></div>
+                            <div class="item-name">Royal Thali</div>
+                            <div class="item-description">Complete meal with 2 curries, dal, rice, bread, salad, raita and dessert</div>
+                            <div class="item-price">₹350</div>
+			<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                            </div>
+
+                            <div class="item-actions">
+                                <button class="add-to-cart">Add to Cart</button>
+                                <button class="order-now">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/south_indian_thali.jpg" alt="South Indian Thali" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">South Indian Thali</div>
+        <div class="item-description">A traditional combo of dosa, sambar, rasam, curd, rice, poriyal, and papad</div>
+        <div class="item-price">₹280</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                            </div>
+
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/punjabi_combo.jpeg" alt="Punjabi Combo" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Punjabi Combo</div>
+        <div class="item-description">Chole, paneer butter masala, naan, rice, salad, and gulab jamun</div>
+        <div class="item-price">₹310</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                            </div>
+
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/biryani_combo.jpg" alt="Biryani Combo" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Veg Biryani Combo</div>
+        <div class="item-description">Fragrant veg biryani served with raita, salad, and gulab jamun</div>
+        <div class="item-price">₹260</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                            </div>
+
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/rajasthani_thali.jpg" alt="Rajasthani Thali" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Rajasthani Thali</div>
+        <div class="item-description">Dal baati churma, gatte ki sabzi, khichdi, papad and buttermilk</div>
+        <div class="item-price">₹330</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                            </div>
+
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/gujarati_thali.jpg" alt="Gujarati Thali" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Gujarati Thali</div>
+        <div class="item-description">Sweet dal, undhiyu, thepla, khichdi, kadhi, salad, and dessert</div>
+        <div class="item-price">₹300</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                            </div>
+
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="indian">
+    <img src="Images/mini_thali.jpeg" alt="Mini Thali" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Mini Thali</div>
+        <div class="item-description">1 curry, dal, 2 chapatis, rice, and salad – perfect for a quick meal</div>
+        <div class="item-price">₹180</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot"></div>
+                            </div>
+
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>                    
+
+                    <!-- Mexican Combo -->
+                    <div class="menu-item" data-cuisine="mexican">
+                        <img src="Images/Fiesta Combo.jpg" alt="Taco Combo" class="item-image">
+                        <div class="item-details">
+                            <div class="nonveg-icon"></div>
+                            <div class="item-name">Fiesta Combo</div>
+                            <div class="item-description">2 Tacos + Nachos + Margarita</div>
+                            <div class="item-price">₹450</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                            </div>
+
+                            <div class="item-actions">
+                                <button class="add-to-cart">Add to Cart</button>
+                                <button class="order-now">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Burrito_Box.jpg" alt="Burrito Box" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Burrito Box</div>
+        <div class="item-description">Veg Burrito + Corn Salad + Churros</div>
+        <div class="item-price">₹399</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot"></div>
+                            </div>
+
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Quesadilla_Pack.jpg" alt="Quesadilla Combo" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Quesadilla Combo</div>
+        <div class="item-description">Chicken Quesadilla + Guacamole + Lime Soda</div>
+        <div class="item-price">₹420</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                            </div>
+
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Enchilada_Combo.jpg" alt="Enchilada Platter" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Enchilada Platter</div>
+        <div class="item-description">2 Veg Enchiladas + Mexican Rice + Salsa</div>
+        <div class="item-price">₹410</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot"></div>
+                            </div>
+
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Fajita_Feast.jpeg" alt="Fajita Feast" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Fajita Feast</div>
+        <div class="item-description">Chicken Fajitas + Grilled Veggies + Refried Beans</div>
+        <div class="item-price">₹470</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot"></div>
+                            </div>
+
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Nacho_Supreme.jpg" alt="Nacho Supreme" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Nacho Supreme</div>
+        <div class="item-description">Loaded Nachos + Jalapeño Cheese Dip + Soft Drink</div>
+        <div class="item-price">₹360</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                            </div>
+
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Mexican_Bowl.jpg" alt="Mexican Rice Bowl" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Mexican Rice Bowl</div>
+        <div class="item-description">Rice + Beans + Salsa + Sour Cream + Tortilla Chips</div>
+        <div class="item-price">₹390</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                            </div>
+
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="mexican">
+    <img src="Images/Tostada_Treat.jpg" alt="Tostada Treat" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Tostada Treat</div>
+        <div class="item-description">2 Chicken Tostadas + Mexican Slaw + Lemonade</div>
+        <div class="item-price">₹430</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot"></div>
+                            </div>
+
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+                    
+                    <!-- Chinese Combo -->
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/Hakka_Combo.jpg" alt="Hakka Noodles Combo" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Hakka Noodles Combo</div>
+        <div class="item-description">Veg Hakka Noodles + Spring Roll + Soft Drink</div>
+        <div class="item-price">₹340</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                            </div>
+
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/FriedRice_Plate.jpg" alt="Fried Rice Combo" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Fried Rice Combo</div>
+        <div class="item-description">Egg Fried Rice + Chicken Manchurian + Iced Tea</div>
+        <div class="item-price">₹390</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                            </div>
+
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/Dumpling_Combo.jpg" alt="Dumpling Delight" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Dumpling Delight</div>
+        <div class="item-description">Steamed Veg Dumplings + Noodles + Soup</div>
+        <div class="item-price">₹360</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                            </div>
+
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/SweetSour_Combo.jpeg" alt="Sweet & Sour Combo" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Sweet & Sour Combo</div>
+        <div class="item-description">Sweet & Sour Chicken + Fried Rice + Drink</div>
+        <div class="item-price">₹420</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot"></div>
+                            </div>
+
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/Schezwan_Box.jpg" alt="Schezwan Combo Box" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Schezwan Combo Box</div>
+        <div class="item-description">Schezwan Rice + Crispy Veg + Chilli Sauce</div>
+        <div class="item-price">₹375</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot"></div>
+                            </div>
+
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="chinese">
+    <img src="Images/Manchow_Bowl.jpg" alt="Manchow Bowl Combo" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Manchow Bowl Combo</div>
+        <div class="item-description">Manchow Soup + Veg Noodles + Fried Wontons</div>
+        <div class="item-price">₹365</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot"></div>
+                            </div>
+
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+                    <div class="menu-item" data-cuisine="chinese">
+                        <img src="Images/Oriental Combo.jpg" alt="Noodles Combo" class="item-image">
+                        <div class="item-details">
+                            <div class="veg-icon"></div>
+                            <div class="item-name">Oriental Combo</div>
+                            <div class="item-description">Noodles + Manchurian + Spring Roll</div>
+                            <div class="item-price">₹300</div>
+				<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                            </div>
+
+                            <div class="item-actions">
+                                <button class="add-to-cart">Add to Cart</button>
+                                <button class="order-now">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+<!-- Italian Combo -->
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/PastaPizzaCombo.jpg" alt="Pasta & Pizza Combo" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Pasta & Pizza Combo</div>
+        <div class="item-description">Veg Alfredo Pasta + Margherita Pizza + Soft Drink</div>
+        <div class="item-price">₹480</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                            </div>
+
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/LasagnaSet.jpg" alt="Lasagna Meal Box" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Lasagna Meal Box</div>
+        <div class="item-description">Chicken Lasagna + Garlic Bread + Lemonade</div>
+        <div class="item-price">₹510</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                            </div>
+
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/RisottoCombo.jpg" alt="Risotto Combo" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Risotto Combo</div>
+        <div class="item-description">Mushroom Risotto + Bruschetta + Mocktail</div>
+        <div class="item-price">₹450</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot "></div>
+                            </div>
+
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/GnocchiSet.jpg" alt="Gnocchi Delight Combo" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Gnocchi Delight Combo</div>
+        <div class="item-description">Gnocchi in Pesto Sauce + Salad + Sparkling Water</div>
+        <div class="item-price">₹470</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                            </div>
+
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/SpaghettiCombo.jpeg" alt="Spaghetti Combo" class="item-image">
+    <div class="item-details">
+        <div class="nonveg-icon"></div>
+        <div class="item-name">Spaghetti Combo</div>
+        <div class="item-description">Spaghetti Bolognese + Garlic Knots + Iced Tea</div>
+        <div class="item-price">₹495</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                            </div>
+
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<div class="menu-item" data-cuisine="italian">
+    <img src="Images/PaniniMeal.jpg" alt="Panini Meal Combo" class="item-image">
+    <div class="item-details">
+        <div class="veg-icon"></div>
+        <div class="item-name">Panini Meal Combo</div>
+        <div class="item-description">Grilled Veg Panini + Potato Wedges + Cold Coffee</div>
+        <div class="item-price">₹435</div>
+	<div class="spice-level">
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                                <div class="spice-dot active"></div>
+                            </div>
+        <div class="item-actions">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="order-now">Order Now</button>
+        </div>
+    </div>
+</div>
+
+                </div>
+            </div>
+            <button class="carousel-arrow next">&gt;</button>
+            <div class="carousel-nav">
+                <div class="carousel-dot active"></div>
+		 <div class="carousel-dot"></div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        <p>&copy; 2025 Hungerbaz. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Cart Management Functions
+        function generateItemId(name) {
+            return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+        }
+        
+        function addToCart(itemElement) {
+            const item = {
+                id: generateItemId(itemElement.querySelector('.item-name').textContent),
+                name: itemElement.querySelector('.item-name').textContent.trim(),
+                price: parseFloat(itemElement.querySelector('.item-price').textContent.replace(/[^0-9.]/g, '')),
+                img: itemElement.querySelector('.item-image').src,
+                veg: itemElement.querySelector('.veg-icon') !== null,
+                quantity: 1
+            };
+        
+            let cart = JSON.parse(localStorage.getItem('hungerbazCart')) || {};
+            
+            if (cart[item.id]) {
+                cart[item.id].quantity += 1;
+            } else {
+                cart[item.id] = item;
+            }
+            
+            localStorage.setItem('hungerbazCart', JSON.stringify(cart));
+            updateCartCount();
+            
+            // Visual feedback
+            const btn = itemElement.querySelector('.add-to-cart');
+            btn.textContent = '✓ Added!';
+            setTimeout(() => {
+                btn.textContent = 'Add to Cart';
+            }, 2000);
+        }
+        
+        // Cart Count Update
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('hungerbazCart')) || {};
+            const count = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-link').textContent = count > 0 ? `Cart (${count})` : 'Cart';
+        }
+        
+        // Carousel Functionality
+        function initializeCarousels() {
+            document.querySelectorAll('.menu-carousel').forEach(carousel => {
+                const container = carousel.querySelector('.carousel-container');
+                const items = carousel.querySelector('.menu-items');
+                const prevBtn = carousel.querySelector('.prev');
+                const nextBtn = carousel.querySelector('.next');
+                const dots = carousel.querySelectorAll('.carousel-dot');
+                
+                let currentIndex = 0;
+                const itemWidth = 275; // Width of each menu item + gap
+                const visibleItems = Math.floor(carousel.offsetWidth / itemWidth);
+                const totalItems = items.children.length;
+                const totalSlides = Math.ceil(totalItems / visibleItems);
+                
+                function updateCarousel() {
+                    const translateX = -currentIndex * (visibleItems * itemWidth);
+                    container.style.transform = `translateX(${translateX}px)`;
+                    
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === currentIndex);
+                        dot.style.display = index < totalSlides ? 'inline-block' : 'none';
+                    });
+                    
+                    prevBtn.disabled = currentIndex === 0;
+                    nextBtn.disabled = currentIndex >= totalSlides - 1;
+                }
+                
+                nextBtn.addEventListener('click', () => {
+                    if (currentIndex < totalSlides - 1) {
+                        currentIndex++;
+                        updateCarousel();
+                    }
+                });
+                
+                prevBtn.addEventListener('click', () => {
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                        updateCarousel();
+                    }
+                });
+                
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => {
+                        currentIndex = index;
+                        updateCarousel();
+                    });
+                });
+                
+                updateCarousel();
+            });
+        }
+        
+        // Cuisine Filter
+        function initializeCuisineFilter() {
+            document.querySelectorAll('.cuisine-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.cuisine-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const cuisine = btn.dataset.cuisine;
+                    
+                    document.querySelectorAll('.menu-item').forEach(item => {
+                        item.style.display = (cuisine === 'all' || item.dataset.cuisine === cuisine) ? 
+                            'block' : 'none';
+                    });
+                    
+                    // Re-initialize carousels after filtering
+                    setTimeout(initializeCarousels, 100);
+                });
+            });
+        }
+        
+        // Search Functionality
+        function initializeSearch() {
+            const searchInput = document.getElementById('search-input');
+            
+            function performSearch() {
+                const term = searchInput.value.toLowerCase();
+                document.querySelectorAll('.menu-item').forEach(item => {
+                    const name = item.querySelector('.item-name').textContent.toLowerCase();
+                    item.style.display = name.includes(term) ? 'block' : 'none';
+                });
+                setTimeout(initializeCarousels, 100);
+            }
+            
+            document.getElementById('search-btn').addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', e => e.key === 'Enter' && performSearch());
+        }
+        
+        // Order Now Functionality
+        // Order Now Functionality (add this to your existing menu page script)
+function initializeOrderNow() {
+    document.querySelectorAll('.order-now').forEach(button => {
+        button.addEventListener('click', function() {
+            const itemElement = this.closest('.menu-item');
+            const item = {
+                id: generateItemId(itemElement.querySelector('.item-name').textContent),
+                name: itemElement.querySelector('.item-name').textContent.trim(),
+                price: parseFloat(itemElement.querySelector('.item-price').textContent.replace(/[^0-9.]/g, '')),
+                img: itemElement.querySelector('.item-image').src,
+                quantity: 1,
+                veg: itemElement.querySelector('.veg-icon') !== null
+            };
+            
+            // Store as instant order
+            localStorage.setItem('instantOrder', JSON.stringify([item]));
+            window.location.href = 'orderNowConfirm.html';
+        });
+    });
+}
+        
+        // Initialize All Functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeCarousels();
+            initializeCuisineFilter();
+            initializeSearch();
+            updateCartCount();
+            
+            // Add to Cart Event Listeners
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    addToCart(this.closest('.menu-item'));
+                });
+            });
+            
+            initializeOrderNow();
+        });
+        
+        // Window Resize Handler
+        window.addEventListener('resize', () => {
+            initializeCarousels();
+        });
+        </script>
+</body>
+</html>

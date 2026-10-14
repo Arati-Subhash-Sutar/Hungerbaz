@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Order Confirmation - Hungerbaz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f8f8;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+    th {
+      background-color: #eee;
+    }
+    .address-form {
+      max-width: 600px;
+      margin: 0 auto 20px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    .address-form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    .address-form input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .confirm-btn {
+      display: block;
+      width: 200px;
+      margin: 0 auto;
+      padding: 12px;
+      font-size: 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .confirm-btn:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Order Confirmation</h1>
+
+  <table id="order-table">
+    <thead>
+      <tr>
+        <th>Item Name</th>
+        <th>Quantity</th>
+        <th>Total Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Items will be dynamically inserted here -->
+    </tbody>
+  </table>
+
+  <div class="address-form">
+    <h3>Delivery Details</h3>
+    <form id="order-form">
+      <label for="fullName">Full Name:</label>
+      <input type="text" id="fullName" placeholder="Enter your full name" required />
+
+      <label for="deliveryAddress">Delivery Address:</label>
+      <input type="text" id="deliveryAddress" placeholder="Enter your address" required />
+
+    <label for="phoneNumber">Phone Number:</label>
+    <input type="tel" id="phoneNumber" placeholder="Enter your phone number" required />
+
+    <button type="submit" class="confirm-btn">Confirm Order</button>
+  </form>
+</div>
+
+<script>
+  // Function to get cart data from localStorage
+  function getCartData() {
+    return JSON.parse(localStorage.getItem('hungerbazCart')) || {};
+  }
+
+  // Function to populate the table with cart items
+  function populateOrderTable() {
+    const cart = getCartData();
+    const tbody = document.querySelector('#order-table tbody');
+    tbody.innerHTML = '';
+
+    for (const id in cart) {
+      const item = cart[id];
+      const totalPrice = item.price * item.quantity;
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${item.name}</td>
+        <td>${item.quantity}</td>
+        <td>₹${totalPrice.toFixed(2)}</td>
+      `;
+      tbody.appendChild(row);
+    }
+  }
+
+  // Handle form submission
+  document.getElementById('order-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const fullName = document.getElementById('fullName').value.trim();
+    const address = document.getElementById('deliveryAddress').value.trim();
+    const phone = document.getElementById('phoneNumber').value.trim();
+
+    const cart = getCartData();
+    const orderItems = [];
+
+    for (const id in cart) {
+      const item = cart[id];
+      orderItems.push({
+        name: item.name,
+        quantity: item.quantity,
+        totalPrice: item.price * item.quantity
+      });
+    }
+
+    // Prepare order data to send to server
+    const orderData = {
+      customerName: fullName,
+      deliveryAddress: address,
+      phoneNumber: phone,
+      items: orderItems,
+      orderDate: new Date().toISOString()
+    };
+
+    // Send order data to server (replace URL with your API endpoint)
+    fetch('https://yourserver.com/api/saveOrder', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(orderData)
+    })
+    .then(response => response.json())
+    .then(data => {
+      alert('Order placed successfully! Thank you for ordering.');
+      // Clear cart after successful order
+      localStorage.removeItem('hungerbazCart');
+      // Redirect to homepage or order summary page
+      window.location.href = 'home.html';
+    })
+    .catch(error => {
+      console.error('Error saving order:', error);
+      alert('There was an error processing your order. Please try again.');
+    });
+  });
+
+  // Initialize page
+  window.onload = function() {
+    populateOrderTable();
+  };
+
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - Hungerbaz</title>
+    <style>
+        /* General Styles */
+        body {
+		background: url('Images/cart_back.jpg') no-repeat center/cover;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            text-align: center;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background: #333;
+            color: white;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-family: Lucida Handwriting;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            margin: 0 15px;
+            font-size: 18px;
+        }
+
+        nav a:hover {
+            color: yellow;
+        }
+
+        /* Cart Section */
+        .cart-container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-item img {
+            width: 80px;
+            border-radius: 8px;
+        }
+
+        .cart-item h3 {
+            margin: 0;
+            flex-grow: 1;
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        .cart-item p {
+            font-size: 18px;
+            color: #ff6600;
+            font-weight: bold;
+        }
+
+        .quantity {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity button {
+            background: #ffcc00;
+            border: none;
+            padding: 5px 10px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0 5px;
+            border-radius: 5px;
+        }
+
+        .quantity span {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .remove-btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* Order Summary */
+        .order-summary {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+
+        /* Address Input */
+        .address-container {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .address-container label {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .address-input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        /* Place Order Button */
+        .place-order-btn {
+            background: green;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .place-order-btn:hover {
+            background: darkgreen;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: white;
+            padding: 15px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+     <header>  
+        <div class="logo">Hungerbaz</div>  
+        <nav>  
+            <a href="home.html">Home</a>  
+            <a href="menu.html">Menu</a>  
+     		    <a href="cart.html" id="cart-link">Cart</a> 
+            <a href="orderDetails1.html">Orders</a>  
+            <a href="our team.html">Restaurants</a>  
+            <a href="aboutus.html">About Us</a>  
+        </nav>  
+    </header>  
+
+         <div class="cart-container">
+    <h1 style="font-family: Georgia, serif;">Your Cart</h1>
+    <div id="cart-items-container"></div>
+
+    <div class="order-summary">
+        <strong>Total: ₹0.00</strong>
+    </div><br><hr>
+
+  
+
+          <!-- Replace your current button with this -->
+<button class="place-order-btn">Place Order</button>    </div>
+</div>
+ 
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Hungerbaz. All rights reserved.</p>
+    </footer>
+
+   <script>
+// Cart Management Functions
+function loadCart() {
+    const cart = JSON.parse(localStorage.getItem('hungerbazCart')) || {};
+    const container = document.getElementById('cart-items-container');
+    container.innerHTML = '';
+    const selectedItems = JSON.parse(localStorage.getItem('selectedCartItems')) || {};
+
+    if (Object.keys(cart).length === 0) {
+        container.innerHTML = '<p>Your cart is empty.</p>';
+        updateTotal();
+        return;
+    }
+
+    for (const id in cart) {
+        const item = cart[id];
+        const isSelected = id in selectedItems;
+
+        const itemDiv = document.createElement('div');
+        itemDiv.classList.add('cart-item');
+        itemDiv.innerHTML = `
+            <input type="checkbox" class="select-item" ${isSelected ? 'checked' : ''} 
+                   data-id="${id}" style="margin-right:10px">
+            <img src="${item.img}" alt="${item.name}">
+            <h3>${item.name}</h3>
+            <p>₹${item.price.toFixed(2)}</p>
+            <div class="quantity">
+                <button class="qty-btn" data-id="${id}" data-change="-1">-</button>
+                <span>${item.quantity}</span>
+                <button class="qty-btn" data-id="${id}" data-change="1">+</button>
+            </div>
+            <button class="remove-btn" data-id="${id}">Remove</button>
+        `;
+        container.appendChild(itemDiv);
+    }
+    attachCartEventListeners();
+    updateTotal();
+    updateCartCount();
+}
+
+function attachCartEventListeners() {
+    // Quantity Buttons
+    document.querySelectorAll('.qty-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const id = this.dataset.id;
+            const change = parseInt(this.dataset.change);
+            updateCartQuantity(id, change);
+        });
+    });
+
+    // Remove Buttons
+    document.querySelectorAll('.remove-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const id = this.dataset.id;
+            removeCartItem(id);
+        });
+    });
+
+    // Checkbox Changes
+    document.querySelectorAll('.select-item').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            updateSelectedItems(this.dataset.id, this.checked);
+            updateTotal();
+        });
+    });
+}
+
+function updateCartQuantity(id, change) {
+    const cart = JSON.parse(localStorage.getItem('hungerbazCart')) || {};
+    if (!cart[id]) return;
+
+    cart[id].quantity = Math.max(1, cart[id].quantity + change);
+    localStorage.setItem('hungerbazCart', JSON.stringify(cart));
+    
+    // Update selected items if exists
+    const selectedItems = JSON.parse(localStorage.getItem('selectedCartItems')) || {};
+    if (selectedItems[id]) {
+        selectedItems[id].quantity = cart[id].quantity;
+        localStorage.setItem('selectedCartItems', JSON.stringify(selectedItems));
+    }
+    
+    loadCart();
+}
+
+function removeCartItem(id) {
+    const cart = JSON.parse(localStorage.getItem('hungerbazCart')) || {};
+    delete cart[id];
+    localStorage.setItem('hungerbazCart', JSON.stringify(cart));
+
+    const selectedItems = JSON.parse(localStorage.getItem('selectedCartItems')) || {};
+    delete selectedItems[id];
+    localStorage.setItem('selectedCartItems', JSON.stringify(selectedItems));
+
+    loadCart();
+}
+
+function updateSelectedItems(id, isSelected) {
+    const cart = JSON.parse(localStorage.getItem('hungerbazCart')) || {};
+    const selectedItems = JSON.parse(localStorage.getItem('selectedCartItems')) || {};
+
+    if (isSelected) {
+        selectedItems[id] = cart[id];
+    } else {
+        delete selectedItems[id];
+    }
+    localStorage.setItem('selectedCartItems', JSON.stringify(selectedItems));
+}
+
+function updateTotal() {
+    const selectedItems = JSON.parse(localStorage.getItem('selectedCartItems')) || {};
+    let total = 0;
+
+    for (const id in selectedItems) {
+        const item = selectedItems[id];
+        total += item.price * item.quantity;
+    }
+
+    document.querySelector('.order-summary strong').textContent = 
+        `Total: ₹${total.toFixed(2)}`;
+}
+
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('hungerbazCart')) || {};
+    let count = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
+    document.getElementById('cart-link').textContent = 
+        count > 0 ? `Cart (${count})` : 'Cart';
+}
+
+// Place Order Handler
+document.querySelector('.place-order-btn').addEventListener('click', () => {
+    const selectedItems = JSON.parse(localStorage.getItem('selectedCartItems')) || {};
+    
+    if (Object.keys(selectedItems).length === 0) {
+        alert('Please select at least one item to order.');
+        return;
+    }
+    
+    window.location.href = 'orderConfirm.html';
+});
+
+// Initial Load
+document.addEventListener('DOMContentLoaded', loadCart);
+</script>
+
+</body>
+</html>
