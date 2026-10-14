@@ -34,13 +34,14 @@ The application uses a structured relational database designed to handle users, 
 
 ---
 
+## System Architecture & Data Flow
+1. **Frontend Interaction:** Users interact with HTML pages (`index.html`, `menu.html`) to browse items, add products to the cart, or fill out contact/feedback forms.
+2. **Form Submission & Handling:** User input is processed and structured to match relational database requirements.
+3. **Database Integration:** The backend schema (`database.sql`) captures and stores user credentials in the `users` table, logs orders in the `orders` table, and tracks customer inquiries via the `contacts` and `feedback` tables.
+
+---
+
 ## Project Snapshots
-
-### Landing
-![Landing](snapshots/index.png)
-
-### Login 
-![Login](snapshots/login.png)
 
 ### Homepage
 ![Homepage](snapshots/home.png)
@@ -50,15 +51,6 @@ The application uses a structured relational database designed to handle users, 
 
 ### Cart
 ![Cart](snapshots/cart.png)
-
-### Order Confirm
-![Order Confirm](snapshots/order_confirm.png)
-
-### Order Details and Feedback
-![Order Details and Feedback](snapshots/order_details_and_feedback.png)
-
-### About us and Contact us
-![About us and Contact us](snapshots/about_us_and_contact_us.png)
 
 ---
 
